@@ -1,54 +1,31 @@
-"use client"; // Ensure this is a Client Component
+"use client";
 
+import Link from "next/link";
 import Image from "next/image";
-import React from "react";
-import { useRouter } from "next/navigation"; // Updated to next/navigation
-import { Events } from "@/Constant";
 
-const EventCard = () => {
-  const router = useRouter();
-
-  const handleCardClick = (slug) => {
-    router.push(`/events/${slug}`); // Redirects to /events/[slug]
-  };
+const EventCard = ({ event }) => {
+  const eventLink = `/events/${event.slug}`;
 
   return (
-    <>
-      <div className="w-full">
-        <h2 className="text-7xl z-50 font-extrabold text-white text-center mb-24 hover:underline mt-20">
-          Upcoming Events
-        </h2>
+    <Link
+      href={eventLink}
+      className="relative w-full sm:w-80 md:w-96 lg:w-80 bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 cursor-pointer flex-shrink-0 mx-2 my-4"
+    >
+      <div className="h-40 w-full bg-blue-600 flex items-center justify-center rounded-t-xl">
+        <Image
+          src={event.imageUrl || "/placeholder.png"}
+          alt={event.title}
+          width={300}
+          height={150}
+          className="w-full h-full object-cover rounded-t-xl"
+        />
       </div>
-      {Events.map((event) => (
-        <div
-          key={event.title}
-          onClick={() => handleCardClick(event.slug)} // Call redirection on click
-          className="max-w-md overflow-hidden shadow-xl border-2 mx-5 mt-9 p-3 rounded-lg transition ease-in-out m-4 hover:-translate-y-1 hover:scale-105 hover:border-4 duration-700 hover:shadow-lg hover:shadow-[#ff7b01] cursor-pointer"
-        >
-          <Image
-            src={event.imageUrl}
-            alt={event.title}
-            width={800}
-            height={80}
-            className="w-full h-96"
-          />
-          <div className="px-6 py-4">
-            <h2 className="font-bold text-xl mb-2 text-[#ff7b01]">
-              {event.title}
-            </h2>
-            <p className="text-gray-200 text-sm">{event.description}</p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              {event.tag1}
-            </span>
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              {event.tag2}
-            </span>
-          </div>
-        </div>
-      ))}
-    </>
+
+      <div className="p-6">
+        <h3 className="text-xl font-semibold mb-2 text-white">{event.title}</h3>
+        <p className="text-gray-400 text-sm line-clamp-3">{event.description}</p>
+      </div>
+    </Link>
   );
 };
 

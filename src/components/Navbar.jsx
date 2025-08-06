@@ -56,6 +56,15 @@ const Navbar = () => {
           >
             <span className =" text-[#ff7b01]">Event</span>
           </Link>
+          <Link
+            href="/team"
+            onClick={() => handleLinkClick("PastEvents")}
+            className={`hover:underline focus:underline decoration-chartreuse-100 md:ml-10 lg:ml-20 underline-offset-8 py-1  rounded-full flex justify-center text-white ${
+              activeLink === "PastEvents" ? "underline" : ""
+            }`}
+          >
+            <span className =" text-[#ff7b01]">Past Events</span>
+          </Link>
         </nav>
       </div>
     </header>
